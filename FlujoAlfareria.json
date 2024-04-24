@@ -1,0 +1,923 @@
+[
+    {
+        "id": "bc9c79515310ba96",
+        "type": "tab",
+        "label": "oscar_ky-036",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "bf10771968d7f69a",
+        "type": "mqtt in",
+        "z": "bc9c79515310ba96",
+        "name": "",
+        "topic": "utng/AMOR/puerta",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "bf0803e82877e801",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 190,
+        "y": 220,
+        "wires": [
+            [
+                "4f9ecc387106021f",
+                "d34b20ab4be75c0e",
+                "1ad055fa82224566",
+                "8bcab11d61b46a2d"
+            ]
+        ]
+    },
+    {
+        "id": "e11858eb6b9d049d",
+        "type": "mqtt out",
+        "z": "bc9c79515310ba96",
+        "name": "",
+        "topic": "utng/AMOR/puerta",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "bf0803e82877e801",
+        "x": 570,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "4f9ecc387106021f",
+        "type": "debug",
+        "z": "bc9c79515310ba96",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 750,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "add4740a72b68365",
+        "type": "inject",
+        "z": "bc9c79515310ba96",
+        "name": "temp",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "x": 230,
+        "y": 380,
+        "wires": [
+            [
+                "9e6ee31889eace7f",
+                "6b882870433fe42a"
+            ]
+        ]
+    },
+    {
+        "id": "9e6ee31889eace7f",
+        "type": "function",
+        "z": "bc9c79515310ba96",
+        "name": "",
+        "func": "global.set(\"switch\", !global.get(\"switch\"));\nmsg.payload=global.get(\"switch\");\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\nglobal.set(\"switch\", false);",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 380,
+        "wires": [
+            [
+                "e11858eb6b9d049d"
+            ]
+        ]
+    },
+    {
+        "id": "4362db988dfbb627",
+        "type": "ui_text",
+        "z": "bc9c79515310ba96",
+        "group": "0401fbe66d3a3021",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "ESTADO Puerta:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": "",
+        "color": "#000000",
+        "x": 650,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "d34b20ab4be75c0e",
+        "type": "function",
+        "z": "bc9c79515310ba96",
+        "name": "",
+        "func": "msg.payload = msg.payload == 1 ? \"Encendidas\" :\"Apagadas\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 200,
+        "wires": [
+            [
+                "4362db988dfbb627",
+                "a5fb3568ff11f541"
+            ]
+        ]
+    },
+    {
+        "id": "40948020a615ae12",
+        "type": "postgresql",
+        "z": "bc9c79515310ba96",
+        "name": "",
+        "query": "INSERT INTO alfareria(sensor_id,user_id,value) VALUES(29,5, '{{msg.payload}}');",
+        "postgreSQLConfig": "bff11fc8ef4ecedf",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 710,
+        "y": 240,
+        "wires": [
+            [
+                "4f9ecc387106021f"
+            ]
+        ]
+    },
+    {
+        "id": "a5fb3568ff11f541",
+        "type": "function",
+        "z": "bc9c79515310ba96",
+        "name": "",
+        "func": "msg.payload = msg.payload=='Apagadas'?0.0:1.0;\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 220,
+        "wires": [
+            [
+                "40948020a615ae12"
+            ]
+        ]
+    },
+    {
+        "id": "1ad055fa82224566",
+        "type": "ui_gauge",
+        "z": "bc9c79515310ba96",
+        "name": "lucesPuerta",
+        "group": "0401fbe66d3a3021",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "lucesPuerta",
+        "label": "units",
+        "format": "{{value}}",
+        "min": "0",
+        "max": "1",
+        "colors": [
+            "#e82502",
+            "#e6e600",
+            "#247e0c"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": true,
+        "className": "",
+        "x": 490,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "8bcab11d61b46a2d",
+        "type": "ui_chart",
+        "z": "bc9c79515310ba96",
+        "name": "histotico/puerta",
+        "group": "0401fbe66d3a3021",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "label": "histotico/puerta",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "10",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 240,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "73f46b51f3fcf399",
+        "type": "mqtt in",
+        "z": "bc9c79515310ba96",
+        "name": "",
+        "topic": "utng/AMOR/bodega2",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "bf0803e82877e801",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 240,
+        "y": 620,
+        "wires": [
+            [
+                "f2fd6af885097ba0",
+                "386b83fd89ca7528",
+                "2d941c862f90f018",
+                "47fd2ac4d765965c"
+            ]
+        ]
+    },
+    {
+        "id": "66f22a72fd8461fb",
+        "type": "mqtt out",
+        "z": "bc9c79515310ba96",
+        "name": "",
+        "topic": "utng/AMOR/bodega2",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "bf0803e82877e801",
+        "x": 620,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "f2fd6af885097ba0",
+        "type": "debug",
+        "z": "bc9c79515310ba96",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 790,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "bec8dcff8e33292f",
+        "type": "inject",
+        "z": "bc9c79515310ba96",
+        "name": "temp",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "x": 270,
+        "y": 780,
+        "wires": [
+            [
+                "82be341a82bf7899",
+                "f2453d10d9bb0e80"
+            ]
+        ]
+    },
+    {
+        "id": "82be341a82bf7899",
+        "type": "function",
+        "z": "bc9c79515310ba96",
+        "name": "",
+        "func": "global.set(\"switch\", !global.get(\"switch\"));\nmsg.payload=global.get(\"switch\");\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\nglobal.set(\"switch\", false);",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 780,
+        "wires": [
+            [
+                "66f22a72fd8461fb"
+            ]
+        ]
+    },
+    {
+        "id": "66c65b424d3ab325",
+        "type": "ui_text",
+        "z": "bc9c79515310ba96",
+        "group": "0401fbe66d3a3021",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "ESTADO Rellenado:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": "",
+        "color": "#000000",
+        "x": 700,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "386b83fd89ca7528",
+        "type": "function",
+        "z": "bc9c79515310ba96",
+        "name": "",
+        "func": "msg.payload = msg.payload == 1 ? \"Encendidas\" :\"Apagadas\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 600,
+        "wires": [
+            [
+                "66c65b424d3ab325",
+                "3e2c31122eb93f82"
+            ]
+        ]
+    },
+    {
+        "id": "0e1afd4cb34e01f3",
+        "type": "postgresql",
+        "z": "bc9c79515310ba96",
+        "name": "",
+        "query": "INSERT INTO alfareria(sensor_id,user_id,value) VALUES(29,5, '{{msg.payload}}');",
+        "postgreSQLConfig": "bff11fc8ef4ecedf",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 750,
+        "y": 640,
+        "wires": [
+            [
+                "f2fd6af885097ba0"
+            ]
+        ]
+    },
+    {
+        "id": "3e2c31122eb93f82",
+        "type": "function",
+        "z": "bc9c79515310ba96",
+        "name": "",
+        "func": "msg.payload = msg.payload=='Apagadas'?0.0:1.0;\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 620,
+        "wires": [
+            [
+                "0e1afd4cb34e01f3"
+            ]
+        ]
+    },
+    {
+        "id": "2d941c862f90f018",
+        "type": "ui_gauge",
+        "z": "bc9c79515310ba96",
+        "name": "lucesRellenado",
+        "group": "0401fbe66d3a3021",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "luces",
+        "label": "units",
+        "format": "{{value}}",
+        "min": "0",
+        "max": "1",
+        "colors": [
+            "#e82502",
+            "#e6e600",
+            "#247e0c"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": true,
+        "className": "",
+        "x": 540,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "f2453d10d9bb0e80",
+        "type": "ui_switch",
+        "z": "bc9c79515310ba96",
+        "name": "",
+        "label": "Manual/Sensor(Rellenado)",
+        "tooltip": "",
+        "group": "0401fbe66d3a3021",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "1",
+        "onvalueType": "num",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "0",
+        "offvalueType": "num",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 520,
+        "y": 720,
+        "wires": [
+            [
+                "66f22a72fd8461fb"
+            ]
+        ]
+    },
+    {
+        "id": "6b882870433fe42a",
+        "type": "ui_switch",
+        "z": "bc9c79515310ba96",
+        "name": "Manual/Sensor (puerta)",
+        "label": "Manual/Sensor",
+        "tooltip": "",
+        "group": "0401fbe66d3a3021",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "2",
+        "onvalueType": "num",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "3",
+        "offvalueType": "num",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 450,
+        "y": 320,
+        "wires": [
+            [
+                "e11858eb6b9d049d"
+            ]
+        ]
+    },
+    {
+        "id": "bd647e6ecb8a4b50",
+        "type": "mqtt in",
+        "z": "bc9c79515310ba96",
+        "name": "",
+        "topic": "utng/AMOR/bodega2",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "bf0803e82877e801",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 260,
+        "y": 1000,
+        "wires": [
+            [
+                "9a581e89da1835f1",
+                "10de573385e79db6",
+                "8d0654d99d0feef4",
+                "47fd2ac4d765965c"
+            ]
+        ]
+    },
+    {
+        "id": "1f43087b2e205ed6",
+        "type": "mqtt out",
+        "z": "bc9c79515310ba96",
+        "name": "",
+        "topic": "utng/AMOR/bodega2",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "bf0803e82877e801",
+        "x": 640,
+        "y": 1160,
+        "wires": []
+    },
+    {
+        "id": "9a581e89da1835f1",
+        "type": "debug",
+        "z": "bc9c79515310ba96",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 810,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "c93dc3f719def2a8",
+        "type": "inject",
+        "z": "bc9c79515310ba96",
+        "name": "temp",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "x": 290,
+        "y": 1160,
+        "wires": [
+            [
+                "7ea6382de83e9cd3",
+                "e67e6b16c05543e9"
+            ]
+        ]
+    },
+    {
+        "id": "7ea6382de83e9cd3",
+        "type": "function",
+        "z": "bc9c79515310ba96",
+        "name": "",
+        "func": "global.set(\"switch\", !global.get(\"switch\"));\nmsg.payload=global.get(\"switch\");\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\nglobal.set(\"switch\", false);",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 1160,
+        "wires": [
+            [
+                "1f43087b2e205ed6"
+            ]
+        ]
+    },
+    {
+        "id": "7d798b40db53b26d",
+        "type": "ui_text",
+        "z": "bc9c79515310ba96",
+        "group": "0401fbe66d3a3021",
+        "order": 8,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "ESTADO Trazado:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": "",
+        "color": "#000000",
+        "x": 710,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "10de573385e79db6",
+        "type": "function",
+        "z": "bc9c79515310ba96",
+        "name": "",
+        "func": "msg.payload = msg.payload == 1 ? \"Encendidas\" :\"Apagadas\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 980,
+        "wires": [
+            [
+                "7d798b40db53b26d",
+                "fd32d01ae236b579"
+            ]
+        ]
+    },
+    {
+        "id": "b4581a4ffc232c68",
+        "type": "postgresql",
+        "z": "bc9c79515310ba96",
+        "name": "",
+        "query": "INSERT INTO alfareria(sensor_id,user_id,value) VALUES(29,5, '{{msg.payload}}');",
+        "postgreSQLConfig": "bff11fc8ef4ecedf",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 770,
+        "y": 1020,
+        "wires": [
+            [
+                "9a581e89da1835f1"
+            ]
+        ]
+    },
+    {
+        "id": "fd32d01ae236b579",
+        "type": "function",
+        "z": "bc9c79515310ba96",
+        "name": "",
+        "func": "msg.payload = msg.payload=='Apagadas'?0.0:1.0;\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 1000,
+        "wires": [
+            [
+                "b4581a4ffc232c68"
+            ]
+        ]
+    },
+    {
+        "id": "8d0654d99d0feef4",
+        "type": "ui_gauge",
+        "z": "bc9c79515310ba96",
+        "name": "lucesTrazado",
+        "group": "0401fbe66d3a3021",
+        "order": 9,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "luces",
+        "label": "units",
+        "format": "{{value}}",
+        "min": "0",
+        "max": "1",
+        "colors": [
+            "#e82502",
+            "#e6e600",
+            "#247e0c"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": true,
+        "className": "",
+        "x": 580,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "e67e6b16c05543e9",
+        "type": "ui_switch",
+        "z": "bc9c79515310ba96",
+        "name": "Manual/Sensor(trazado)",
+        "label": "Manual/Sensor(trazado)",
+        "tooltip": "",
+        "group": "0401fbe66d3a3021",
+        "order": 10,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "7",
+        "onvalueType": "num",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "6",
+        "offvalueType": "num",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 530,
+        "y": 1100,
+        "wires": [
+            [
+                "1f43087b2e205ed6"
+            ]
+        ]
+    },
+    {
+        "id": "47fd2ac4d765965c",
+        "type": "ui_chart",
+        "z": "bc9c79515310ba96",
+        "name": "histotico/Rellenado",
+        "group": "0401fbe66d3a3021",
+        "order": 11,
+        "width": 0,
+        "height": 0,
+        "label": "histotico/Rellenado",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "15",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 370,
+        "y": 680,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "bf0803e82877e801",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "192.168.157.135",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "0401fbe66d3a3021",
+        "type": "ui_group",
+        "name": "Alfareria",
+        "tab": "796276b3e955e273",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "bff11fc8ef4ecedf",
+        "type": "postgreSQLConfig",
+        "name": "",
+        "host": "127.0.0.1",
+        "hostFieldType": "str",
+        "port": "5432",
+        "portFieldType": "num",
+        "database": "aiot",
+        "databaseFieldType": "str",
+        "ssl": "false",
+        "sslFieldType": "bool",
+        "applicationName": "",
+        "applicationNameType": "str",
+        "max": "10",
+        "maxFieldType": "num",
+        "idle": "1000",
+        "idleFieldType": "num",
+        "connectionTimeout": "10000",
+        "connectionTimeoutFieldType": "num",
+        "user": "postgres",
+        "userFieldType": "str",
+        "password": "1234",
+        "passwordFieldType": "str"
+    },
+    {
+        "id": "796276b3e955e273",
+        "type": "ui_tab",
+        "name": "sensores",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]

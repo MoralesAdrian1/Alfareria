@@ -1,7 +1,7 @@
 # Alfareria
 -----------------------------------------------------------------------------------------------------------------
 # Descripcción
-Se Llevar a cabo una automatización del sistema de iluminación en una alfareria de la localidad,
+Se Llevará a cabo una automatización del sistema de iluminación en una alfareria de la localidad,
 a través del uso de software y hardware e implementando sesnores y actuadores para llevar a cabo dicha 
 automatización.
 -----------------------------------------------------------------------------------------------------------------
@@ -79,6 +79,23 @@ ademas del video del Propietario de la empresa
 
 https://drive.google.com/drive/folders/1hHm3X50f2-vqSjWN0Jp-R4MGt9V4pwWT?usp=drive_link
 
+-----------------------------------------------------------------------------------------------------------------
+# Manual de conexión Sensores y Actuadores
+## Esp1 (Puerta con sensor Magnetico)
+### sensor Magnetico KY-025
+Pines: GND, VCC, AD( pin 15)
+### Relé
+Pines: GND, VCC, S (pin 22)
+*************************************
+## Esp2 (Tableros con sensor ultrasonico)
+### Sensor Ultrasonico
+Pines: GND, VCC, Trigger (pin 12), Echo (pin 14) 
+### Relé
+Pines: GND, VCC, S (pin 16)
+*************************************
+## Esp3 (Area de Rellenado y Trazado)
+### Relé de 4 modulos
+Pines: GND, VCC, IN1(22), IN4(15)
 -----------------------------------------------------------------------------------------------------------------
 #carta de Agradecimiento
 ![Imagen de WhatsApp 2024-04-24 a las 15 20 15_fdcfd827](https://github.com/MoralesAdrian1/Alfareria/assets/135056297/609302e6-8070-4ca2-9348-bb5e95b3ae76)

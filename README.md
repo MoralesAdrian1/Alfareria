@@ -32,7 +32,8 @@ actuadores mediante la red local y una RaspBerry.
 |Sensor Ultrasonico hc-sr04|Sensor|$89 c/u|1|![image](https://github.com/MoralesAdrian1/Alfareria/assets/135056297/f89c9b9a-974b-41df-96bf-4b2d5d9c1dfb)|
 |Cables Dupont|Cables|120|$119|1|![image](https://github.com/MoralesAdrian1/Alfareria/assets/135056297/f1867c7b-355f-4386-bf44-75986f0ae487)|
 -----------------------------------------------------------------------------------------------------------------
-#Dasboard Node-red
+# Dasboard Node-red
+
 ![image](https://github.com/MoralesAdrian1/Alfareria/assets/135056297/5e1df317-d472-4b85-b5eb-5d5769c68f1f)
 ![image](https://github.com/MoralesAdrian1/Alfareria/assets/135056297/d92a5942-b525-439d-aa07-cbfff3d73c28)
 ![image](https://github.com/MoralesAdrian1/Alfareria/assets/135056297/d7d8dc02-cda5-40e7-84bc-abd87077ec41)

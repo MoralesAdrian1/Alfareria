@@ -30,7 +30,7 @@ actuadores mediante la red local y una RaspBerry.
 |Modulo de 4 Relés|Actuador|$95 c/u|1|![image](https://github.com/MoralesAdrian1/Alfareria/assets/135056297/209b5ffc-e233-45e0-8a8f-134aab699ccc)|
 |Sensor Magnetico|Sensor|$35 c/u|1|![image](https://github.com/MoralesAdrian1/Alfareria/assets/135056297/6205c71c-05c0-4f85-9197-b5133c8972e5)|
 |Sensor Ultrasonico hc-sr04|Sensor|$89 c/u|1|![image](https://github.com/MoralesAdrian1/Alfareria/assets/135056297/f89c9b9a-974b-41df-96bf-4b2d5d9c1dfb)|
-|Cables Dupont|Cables|120|$119|1|![image](https://github.com/MoralesAdrian1/Alfareria/assets/135056297/f1867c7b-355f-4386-bf44-75986f0ae487)|
+|Cables Dupont|Cables|$119 c/Paquete|120|1|![image](https://github.com/MoralesAdrian1/Alfareria/assets/135056297/f1867c7b-355f-4386-bf44-75986f0ae487)|
 -----------------------------------------------------------------------------------------------------------------
 # Dasboard Node-red
 

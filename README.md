@@ -40,6 +40,38 @@ actuadores mediante la red local y una RaspBerry.
 
 -----------------------------------------------------------------------------------------------------------------
 # Tablas de Postgres
+
+Tabla sensor_type(En esta tabla podemos insertar el tipo de sensor "Analogico" o "Digital")
+Código:
+CREATE TABLE sensor_type (id SERIAL PRIMARY KEY, name VARCHAR(100) NOT NULL, record_at TIMESTAMP DEFAULT now());
+
+![Imagen de WhatsApp 2024-04-24 a las 17 32 08_6fe01408](https://github.com/MoralesAdrian1/Alfareria/assets/135056297/64f3f5eb-7d7d-491c-916d-4f74b3053408)
+********************************************************************************************
+
+
+Sensors(En esta Tabla estan Almacenados Los datos de todos los sensores y actuadores)
+Código:
+CREATE TABLE sensor(id SERIAL PRIMARY KEY, type INTEGER, name VARCHAR(50), record_at TIMESTAMP DEFAULT now(), FOREIGN KEY(type) REFERENCES sensor_type(id));
+
+
+![Imagen de WhatsApp 2024-04-24 a las 17 18 03_62153d0a](https://github.com/MoralesAdrian1/Alfareria/assets/135056297/242c57df-5165-48ef-aaf8-b137e404b687)
+********************************************************************************************
+User(en esta tabla se almacenan los datos de los usuarios, los cuales podran insertar nuevos sensores ademas de 
+permitir llevar un control sobre los datos que se ingresen desde node-red)
+Código:
+CREATE TABLE users(id SERIAL PRIMARY KEY, username VARCHAR(40), password VARCHAR(40), record_at TIMESTAMP DEFAULT now());
+
+![Imagen de WhatsApp 2024-04-24 a las 17 18 03_25178140](https://github.com/MoralesAdrian1/Alfareria/assets/135056297/51bfe2d1-69ef-466d-87a5-e5a6c8cac7ee)
+********************************************************************************************
+Alfareria(En esta Tabla Llegan todos los valores que mandan los sensores colocados en nustro proyecto seguido de 
+el id de sensor y el id del usuario que esta enviando los datos)
+Código:
+CREATE TABLE Alfareria(id SERIAL PRIMARY KEY, sensor_id INTEGER, user_id INTEGER, value FLOAT, record_at TIMESTAMP DEFAULT now(), FOREIGN KEY(sensor_id) REFERENCES sensor(id), FOREIGN KEY(user_id) REFERENCES users(id));
+
+![Imagen de WhatsApp 2024-04-24 a las 17 13 49_5646d1f3](https://github.com/MoralesAdrian1/Alfareria/assets/135056297/3655ec5d-ee3b-4698-9f63-920d96468109)
+![Imagen de WhatsApp 2024-04-24 a las 17 13 49_5ab500e3](https://github.com/MoralesAdrian1/Alfareria/assets/135056297/88531a08-10a4-4d6c-afca-a7e6aec31cfe)
+********************************************************************************************
+
 -----------------------------------------------------------------------------------------------------------------
 # Videos(Link a Carpeta de Drive)
 En esta carpeta de drive se encuentran los videos de evidencia de funcionamiento y explicación del proyecto

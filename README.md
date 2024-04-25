@@ -86,6 +86,9 @@ https://drive.google.com/drive/folders/1hHm3X50f2-vqSjWN0Jp-R4MGt9V4pwWT?usp=dri
 Pines: GND, VCC, AD( pin 15)
 ### Relé
 Pines: GND, VCC, S (pin 22)
+## Diagrama de conexion 
+![image](https://github.com/MoralesAdrian1/Alfareria/assets/116208760/1c23b099-43df-4853-8b9b-c2658e542ec5)
+
 *************************************
 ## Esp2 (Tableros con sensor ultrasonico)
 ### Sensor Ultrasonico
@@ -99,6 +102,9 @@ Pines: GND, VCC, S (pin 16)
 ## Esp3 (Area de Rellenado y Trazado)
 ### Relé de 4 modulos
 Pines: GND, VCC, IN1(22), IN4(15)
+## Diagrama de conexion 
+![image](https://github.com/MoralesAdrian1/Alfareria/assets/116208760/6c226a99-8132-4eb0-a9a9-86c67d1612e3)
+
 -----------------------------------------------------------------------------------------------------------------
 #carta de Agradecimiento
 ![Imagen de WhatsApp 2024-04-24 a las 15 20 15_fdcfd827](https://github.com/MoralesAdrian1/Alfareria/assets/135056297/609302e6-8070-4ca2-9348-bb5e95b3ae76)

@@ -92,6 +92,9 @@ Pines: GND, VCC, S (pin 22)
 Pines: GND, VCC, Trigger (pin 12), Echo (pin 14) 
 ### Relé
 Pines: GND, VCC, S (pin 16)
+## Diagrama de conexion
+![image](https://github.com/MoralesAdrian1/Alfareria/assets/116208760/30c519a0-a08c-43e3-a39d-df2558d34d83)
+
 *************************************
 ## Esp3 (Area de Rellenado y Trazado)
 ### Relé de 4 modulos
